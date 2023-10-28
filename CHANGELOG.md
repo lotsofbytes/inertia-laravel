@@ -5,16 +5,78 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased](https://github.com/inertiajs/inertia-laravel/compare/v0.5.4...HEAD)
+## [Unreleased](https://github.com/inertiajs/inertia-laravel/compare/v0.6.11...master)
+
+- Nothing!
+
+## [v0.6.11](https://github.com/inertiajs/inertia-laravel/compare/v0.6.10...v0.6.11) - 2023-09-13
+
+- Add option for using the `bun` runtime in SSR ([#552](https://github.com/inertiajs/inertia-laravel/pull/552))
+
+## [v0.6.10](https://github.com/inertiajs/inertia-laravel/compare/v0.6.9...v0.6.10) - 2023-09-13
+
+- Add `inertia_location` helper function ([#491](https://github.com/inertiajs/inertia-laravel/pull/491))
+- Add `Route::inertia()` IDE helper ([#413](https://github.com/inertiajs/inertia-laravel/pull/413))
+- Automatically update Facade docblocks ([#538](https://github.com/inertiajs/inertia-laravel/pull/538))
+- Restore request and session on redirects ([#539](https://github.com/inertiajs/inertia-laravel/pull/539))
+- Add PHP 8.3 support ([#540](https://github.com/inertiajs/inertia-laravel/pull/540))
+
+## [v0.6.9](https://github.com/inertiajs/inertia-laravel/compare/v0.6.8...v0.6.9) - 2023-01-17
+
+- Conditionally use `pcntl` extension in `inertia:start-ssr` command ([#492](https://github.com/inertiajs/inertia-laravel/pull/492))
+
+## [v0.6.8](https://github.com/inertiajs/inertia-laravel/compare/v0.6.7...v0.6.8) - 2023-01-14
+
+- Reintroduce `inertia.ssr.enabled` config option ([#488](https://github.com/inertiajs/inertia-laravel/pull/488))
+- Fix bug where SSR is dispatched twice when errors exist ([#489](https://github.com/inertiajs/inertia-laravel/pull/489))
+
+## [v0.6.7](https://github.com/inertiajs/inertia-laravel/compare/v0.6.6...v0.6.7) - 2023-01-12
+
+- Report SSR errors ([#486](https://github.com/inertiajs/inertia-laravel/pull/486))
+- Auto enable SSR based on existence of SSR bundle ([#487](https://github.com/inertiajs/inertia-laravel/pull/487))
+
+## [v0.6.6](https://github.com/inertiajs/inertia-laravel/compare/v0.6.5...v0.6.6) - 2023-01-11
+
+- Add `inertia:start-ssr` and `inertia:stop-ssr` artisan commands ([#483](https://github.com/inertiajs/inertia-laravel/pull/483))
+
+## [v0.6.5](https://github.com/inertiajs/inertia-laravel/compare/v0.6.4...v0.6.5) - 2023-01-10
+
+- Add Laravel v10 support ([#480](https://github.com/inertiajs/inertia-laravel/pull/480))
+
+## [v0.6.4](https://github.com/inertiajs/inertia-laravel/compare/v0.6.3...v0.6.4) - 2022-11-08
+
+- Add PHP 8.2 support ([#463](https://github.com/inertiajs/inertia-laravel/pull/463))
+
+## [v0.6.3](https://github.com/inertiajs/inertia-laravel/compare/v0.6.2...v0.6.3) - 2022-06-27
+
+- Check Vite manifest path (`build/manifest.json`) when determining the current asset version ([#399](https://github.com/inertiajs/inertia-laravel/pull/399))
+
+## [v0.6.2](https://github.com/inertiajs/inertia-laravel/compare/v0.6.1...v0.6.2) - 2022-05-24
+
+- Switch to using the `Vary: X-Inertia` header ([#404](https://github.com/inertiajs/inertia-laravel/pull/404))
+- Fix bug with incompatible `$request->header()` method ([#404](https://github.com/inertiajs/inertia-laravel/pull/404))
+
+## [v0.6.1](https://github.com/inertiajs/inertia-laravel/compare/v0.6.0...v0.6.1) - 2022-05-24
+
+- Set `Vary: Accept` header for all responses ([#398](https://github.com/inertiajs/inertia-laravel/pull/398))
+- Only register Blade directives when actually needed ([#395](https://github.com/inertiajs/inertia-laravel/pull/395))
+
+## [v0.6.0](https://github.com/inertiajs/inertia-laravel/compare/v0.5.4...v0.6.0) - 2022-05-10
 
 ### Added
 
 - Inertia now redirects back by default when no response is returned from a controller ([#350](https://github.com/inertiajs/inertia-laravel/pull/350))
-- The Middleware has an overrideable `onEmptyResponse` hook to customize the default 'redirect back' behaviour ([#350](https://github.com/inertiajs/inertia-laravel/pull/350))
+- The Middleware has an overridable `onEmptyResponse` hook to customize the default 'redirect back' behavior ([#350](https://github.com/inertiajs/inertia-laravel/pull/350))
 
 ### Changed
 
 - Internal: Replaced the Middleware's `checkVersion` method with an `onVersionChange` hook ([#350](https://github.com/inertiajs/inertia-laravel/pull/350))
+
+### Fixed
+
+- Fixed namespace issue with `Route::inertia()` method ([#368](https://github.com/inertiajs/inertia-laravel/pull/368))
+- Added session check when sharing validation errors ([#380](https://github.com/inertiajs/inertia-laravel/pull/380))
+- Fixed docblock on facade render method ([#387](https://github.com/inertiajs/inertia-laravel/pull/387))
 
 ## [v0.5.4](https://github.com/inertiajs/inertia-laravel/compare/v0.5.3...v0.5.4) - 2022-01-18
 

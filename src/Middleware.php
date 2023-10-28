@@ -23,7 +23,6 @@ class Middleware
      *
      * @see https://inertiajs.com/asset-versioning
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return string|null
      */
     public function version(Request $request)
@@ -36,6 +35,10 @@ class Middleware
             return md5_file($manifest);
         }
 
+        if (file_exists($manifest = public_path('build/manifest.json'))) {
+            return md5_file($manifest);
+        }
+
         return null;
     }
 
@@ -44,7 +47,6 @@ class Middleware
      *
      * @see https://inertiajs.com/shared-data
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return array
      */
     public function share(Request $request)
@@ -61,7 +63,6 @@ class Middleware
      *
      * @see https://inertiajs.com/server-side-setup#root-template
      *
-     * @param  Request  $request
      * @return string
      */
     public function rootView(Request $request)
@@ -72,8 +73,6 @@ class Middleware
     /**
      * Handle the incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Closure  $next
      * @return Response
      */
     public function handle(Request $request, Closure $next)
@@ -86,6 +85,7 @@ class Middleware
         Inertia::setRootView($this->rootView($request));
 
         $response = $next($request);
+        $response->headers->set('Vary', 'X-Inertia');
 
         if (! $request->header('X-Inertia')) {
             return $response;
@@ -109,10 +109,6 @@ class Middleware
     /**
      * Determines what to do when an Inertia action returned with no response.
      * By default, we'll redirect the user back to where they came from.
-     *
-     * @param  Request  $request
-     * @param  Response  $response
-     * @return Response
      */
     public function onEmptyResponse(Request $request, Response $response): Response
     {
@@ -122,10 +118,6 @@ class Middleware
     /**
      * Determines what to do when the Inertia asset version has changed.
      * By default, we'll initiate a client-side location visit to force an update.
-     *
-     * @param  Request  $request
-     * @param  Response  $response
-     * @return Response
      */
     public function onVersionChange(Request $request, Response $response): Response
     {
@@ -140,12 +132,11 @@ class Middleware
      * Resolves and prepares validation errors in such
      * a way that they are easier to use client-side.
      *
-     * @param  Request  $request
      * @return object
      */
     public function resolveValidationErrors(Request $request)
     {
-        if (! $request->session()->has('errors')) {
+        if (! $request->hasSession() || ! $request->session()->has('errors')) {
             return (object) [];
         }
 
